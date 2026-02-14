@@ -125,7 +125,7 @@
                 <div class="checkbox-wrapper">
                     <div class="checkbox-row">
                         <label for="maxWeightUnlocked">Max Weight Unlocked</label>
-                        <input type="checkbox" id="maxWeightUnlocked" onchange="updateUIState()">
+                        <input type="checkbox" id="maxWeightUnlocked" checked onchange="updateUIState()">
                     </div>
                     <input type="number" id="maxWeightReborn" placeholder="Unlocked On Reborn..." disabled>
                 </div>
@@ -152,9 +152,9 @@
             <div class="overgrind-group">
                 <div class="group-header">Overgrind Settings</div>
                 <label>Weight Purchase Delay (s)</label>
-                <input type="number" id="weightOver" placeholder="0" value="1.5" step="0.1">
+                <input type="number" id="weightOver" placeholder="0" value="1.15" step="0.1">
                 <label>Stage Purchase Delay (s)</label>
-                <input type="number" id="stageOver" placeholder="0" value="2" step="0.1">
+                <input type="number" id="stageOver" placeholder="0" value="1.2" step="0.1">
                 <label>Reborn Rejoin Time (s)</label>
                 <input type="number" id="rebornOver" placeholder="0" value="30" step="0.1">
             </div>
@@ -336,7 +336,7 @@ function startCalculation() {
                 <span class="label">Total Hours</span>
                 <span class="val">${hoursFormatted} hours</span>
                 <span class="label">Total Seconds</span>
-                <span class="val">${Math.round(seconds).toLocaleString()}</span>
+                <span class="val">${Math.floor(seconds).toLocaleString()}</span>
             `;
             resultDiv.style.display='block';
             statusDiv.style.display='none';
