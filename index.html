@@ -7,101 +7,42 @@
     <style>
         :root { --bg: #1a1a1a; --card-bg: #2d2d2d; --text: #e0e0e0; --input-bg: #3d3d3d; --border: #555; --accent: #4a90e2; --accent-hover: #357abd; --error: #e74c3c; }
         body.light { --bg: #f0f2f5; --card-bg: #fff; --text: #333; --input-bg: #f9f9f9; --border: #ccc; }
-        
-        body { 
-            font-family: system-ui, -apple-system, sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 10px; 
-            box-sizing: border-box; 
-            transition: background 0.3s, color 0.3s; 
-            font-size: 14px;
-        }
-
-        .card { 
-            background: var(--card-bg); 
-            padding: 1.5rem; 
-            border-radius: 10px; 
-            width: 100%; 
-            max-width: 800px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-            position: relative; 
-            transition: background 0.3s; 
-        }
-
-        h3 { 
-            margin-top: 0; 
-            text-align: center; 
-            margin-bottom: 2.5rem;
-            font-weight: 600; 
-            font-size: 1.3rem;
-        }
-
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; box-sizing: border-box; transition: background 0.3s, color 0.3s; font-size: 14px; }
+        .card { background: var(--card-bg); padding: 1.5rem; border-radius: 10px; width: 100%; max-width: 800px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; transition: background 0.3s; }
+        h3 { margin-top: 0; text-align: center; margin-bottom: 2.5rem; font-weight: 600; font-size: 1.3rem; }
         .layout-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.5rem; }
-        @media (max-width: 768px) {
-            .layout-container { grid-template-columns: 1fr; gap: 1.5rem; }
-            .col-settings { border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 1.5rem; }
-        }
-
+        @media (max-width: 768px) { .layout-container { grid-template-columns: 1fr; gap: 1.5rem; } .col-settings { border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 1.5rem; } }
         .col-settings, .col-main { display: flex; flex-direction: column; gap: 1rem; }
         .section-box { margin-bottom: 4px; }
-
-        .group-header { 
-            font-weight: 700; margin-bottom: 8px; font-size: 0.85rem; color: var(--accent); 
-            letter-spacing: 0.5px; border-bottom: 1px solid var(--border); padding-bottom: 4px;
-        }
-        
+        .group-header { font-weight: 700; margin-bottom: 8px; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.5px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
         label { display: block; margin-bottom: 3px; font-size: 0.8rem; opacity: 0.9; font-weight: 500; }
-        
-        select, input[type="text"], input[type="number"] { 
-            width: 100%; padding: 8px; margin-bottom: 8px; background: var(--input-bg); border: 1px solid var(--border); 
-            color: var(--text); box-sizing: border-box; border-radius: 5px; font-size: 0.9rem; transition: border-color 0.2s; 
-        }
+        select, input[type="text"], input[type="number"] { width: 100%; padding: 8px; margin-bottom: 8px; background: var(--input-bg); border: 1px solid var(--border); color: var(--text); box-sizing: border-box; border-radius: 5px; font-size: 0.9rem; transition: border-color 0.2s; }
         select:focus, input:focus { outline: none; border-color: var(--accent); }
         input:disabled { opacity: 0.5; cursor: not-allowed; }
-
         .row { display: flex; gap: 8px; }
         .row > div { flex: 1; }
-
-        button.action-btn { 
-            width: 100%; padding: 10px; background: var(--accent); color: white; border: none; border-radius: 5px; cursor: pointer; 
-            font-size: 0.95rem; font-weight: 600; transition: background 0.2s; margin-top: auto; 
-        }
+        button.action-btn { width: 100%; padding: 10px; background: var(--accent); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: background 0.2s; margin-top: auto; }
         button.action-btn:hover { background: var(--accent-hover); }
         button.action-btn:disabled { background: var(--border); cursor: not-allowed; opacity: 0.7; }
-
-        .toggle-btn { 
-            position: absolute; top: 15px; right: 15px; background: none; border: none; cursor: pointer; padding: 4px; 
-            color: var(--text); border-radius: 50%; transition: background 0.2s; 
-        }
+        .toggle-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; cursor: pointer; padding: 4px; color: var(--text); border-radius: 50%; transition: background 0.2s; }
         .toggle-btn:hover { background: rgba(128,128,128,0.2); }
         .toggle-icon { width: 20px; height: 20px; fill: currentColor; }
-
         #status-container { margin-top: 15px; display: none; }
         progress { width: 100%; height: 8px; border-radius: 4px; overflow: hidden; appearance: none; }
         progress::-webkit-progress-bar { background-color: var(--input-bg); }
         progress::-webkit-progress-value { background-color: var(--accent); }
         .progress-label { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px; opacity: 0.8; }
         #status-detail { font-size: 0.75rem; opacity: 0.7; margin-top: 4px; text-align: center; font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
         input[type="range"] { width: 100%; margin: 4px 0 8px 0; cursor: pointer; accent-color: var(--accent); }
         .slider-val { float: right; font-weight: bold; color: var(--accent); font-size: 0.9em; }
-        
         .checkbox-wrapper { display: flex; flex-direction: column; gap: 6px; }
         .checkbox-row { display: flex; align-items: center; justify-content: space-between; background: var(--input-bg); padding: 8px 10px; border-radius: 5px; border: 1px solid var(--border); }
         .checkbox-row label { margin: 0; cursor: pointer; font-weight: normal; font-size: 0.85rem; }
         input[type="checkbox"] { width: auto; margin: 0; transform: scale(1.1); accent-color: var(--accent); cursor: pointer; }
         input[type="checkbox"]:disabled { cursor: not-allowed; opacity: 0.5; }
-
         .hidden { display: none; }
         .disabled-text { opacity: 0.5; cursor: not-allowed; }
         .disabled-text label, .disabled-text input { cursor: not-allowed; }
-
         #result { margin-top: 0; font-size: 0.9rem; text-align: center; padding: 15px; background: var(--input-bg); border-radius: 6px; display: none; word-wrap: break-word; border: 1px solid var(--border); }
         #result .label { display: block; font-size: 0.7rem; opacity: 0.7; margin-top: 6px; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
         #result .val { display: block; font-size: 1.1em; font-weight: bold; font-family: monospace; }
@@ -109,99 +50,61 @@
     </style>
 </head>
 <body>
-
 <div class="card">
-    <button class="toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
-        <svg class="toggle-icon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
-    </button>
-
+    <button class="toggle-btn" onclick="toggleTheme()"><svg class="toggle-icon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg></button>
     <h3>Progression Calculator</h3>
-
     <div class="layout-container">
         <div class="col-settings">
-            
             <div class="section-box">
                 <div class="group-header">Max Weight Config</div>
                 <div class="checkbox-wrapper">
-                    <div class="checkbox-row">
-                        <label for="maxWeightUnlocked">Max Weight Unlocked</label>
-                        <input type="checkbox" id="maxWeightUnlocked" checked onchange="updateUIState()">
-                    </div>
+                    <div class="checkbox-row"><label for="maxWeightUnlocked">Max Weight Unlocked</label><input type="checkbox" id="maxWeightUnlocked" onchange="updateUIState()"></div>
                     <input type="number" id="maxWeightReborn" placeholder="Unlocked On Reborn..." disabled>
                 </div>
             </div>
-
             <div class="section-box">
                 <div class="group-header">Simulation Mode</div>
                 <div class="checkbox-wrapper">
-                    <div class="checkbox-row">
-                        <label for="autoMode">Automatic Mode Selection</label>
-                        <input type="checkbox" id="autoMode" checked onchange="updateUIState()">
-                    </div>
-                    <div class="checkbox-row" id="approxLabelRow">
-                        <label for="approxMode">Approximation Mode</label>
-                        <input type="checkbox" id="approxMode" checked onchange="updateUIState()">
-                    </div>
+                    <div class="checkbox-row"><label for="autoMode">Automatic Mode Selection</label><input type="checkbox" id="autoMode" checked onchange="updateUIState()"></div>
+                    <div class="checkbox-row" id="approxLabelRow"><label for="approxMode">Approximation Mode</label><input type="checkbox" id="approxMode" checked onchange="updateUIState()"></div>
                 </div>
                 <div id="sliderGroup" class="hidden">
-                    <label style="margin-top:8px;">Sampling Exponential Growth Multiplier <span id="sampleVal" class="slider-val">1.05x</span></label>
+                    <label style="margin-top:8px;">Sampling Multiplier <span id="sampleVal" class="slider-val">1.05x</span></label>
                     <input type="range" id="sampleRate" min="1.00" max="2.00" step="0.01" value="1.05" oninput="updateSlider(this.value)">
                 </div>
             </div>
-
             <div class="overgrind-group">
                 <div class="group-header">Overgrind Settings</div>
-                <label>Weight Purchase Delay (s)</label>
-                <input type="number" id="weightOver" placeholder="0" value="0.75" step="0.1">
-                <label>Stage Purchase Delay (s)</label>
-                <input type="number" id="stageOver" placeholder="0" value="1.6" step="0.1">
-                <label>Reborn Rejoin Time (s)</label>
-                <input type="number" id="rebornOver" placeholder="0" value="30" step="0.1">
+                <label>Weight Purchase Delay (s)</label><input type="number" id="weightOver" placeholder="0" value="0.75" step="0.1">
+                <label>Stage Purchase Delay (s)</label><input type="number" id="stageOver" placeholder="0" value="1.6" step="0.1">
+                <label>Reborn Rejoin Time (s)</label><input type="number" id="rebornOver" placeholder="0" value="30" step="0.1">
             </div>
         </div>
-
         <div class="col-main">
             <div>
                 <div class="group-header">Initial Status</div>
-                <div class="row">
-                    <div><input type="text" id="startMuscle" placeholder="Muscle"></div>
-                    <div><input type="text" id="startCoins" placeholder="Coins"></div>
-                </div>
+                <div class="row"><div><input type="text" id="startMuscle" placeholder="Muscle"></div><div><input type="text" id="startCoins" placeholder="Coins"></div></div>
                 <input type="number" id="startReborn" placeholder="Reborn" value="0" min="0" oninput="updateUIState()">
-                <div class="row">
-                    <div><select id="startStage"></select></div>
-                    <div><select id="startWeight"></select></div>
-                </div>
+                <div class="row"><div><select id="startStage"></select></div><div><select id="startWeight"></select></div></div>
             </div>
-
             <div>
                 <div class="group-header">Target Status</div>
-                <div class="row">
-                    <div><input type="text" id="targetMuscle" placeholder="Muscle"></div>
-                    <div><input type="text" id="targetCoins" placeholder="Coins"></div>
-                </div>
+                <div class="row"><div><input type="text" id="targetMuscle" placeholder="Muscle"></div><div><input type="text" id="targetCoins" placeholder="Coins"></div></div>
                 <input type="number" id="targetReborn" placeholder="Reborn" value="0" min="0" oninput="updateUIState()">
-                <div class="row">
-                    <div><select id="targetStage"></select></div>
-                    <div><select id="targetWeight"></select></div>
-                </div>
+                <div class="row"><div><select id="targetStage"></select></div><div><select id="targetWeight"></select></div></div>
             </div>
-
             <button id="calcBtn" class="action-btn" onclick="startCalculation()">Calculate Time</button>
-
             <div id="status-container">
                 <div class="progress-label"><span>Calculating...</span><span id="progress-text">0%</span></div>
                 <progress id="progressBar" value="0" max="100"></progress>
                 <div id="status-detail">Initializing...</div>
             </div>
-
             <div id="result"></div>
         </div>
     </div>
 </div>
 
 <script>
-// UI Data
 const RAW_WEIGHTS_UI=[['Pencil','0','10'],['Stick','15','20'],['Mouse','45','30'],['Water','90','50'],['Soccer Ball','187.5','70'],['Bottle','315','100'],['Textbook','600','160'],['Bucket','1.2K','240'],['Wood','2.15K','330'],['Guitar','3.475K','440'],['Chair','5.275K','620'],['Cart','8.375K','850'],['TV','12.75K','1.1K'],['Bicyle','19.8K','1.399K'],['Desk','29.25K','1.85K'],['Bed','44.25K','2.799K'],['Log','75.5K','3.7K'],['Canoe','111K','5.55K'],['Tyre','208K','7.9K'],['Refrigeretor','355K','10.1K'],['Drum','1.212M','15.5K'],['Hydrant','2.325M','22.39K'],['Piano','4.025M','40.9K'],['Motorcycle','9.8M','63K'],['Safe','18.9M','84.5K'],['Flag','30.25M','100K'],['ATM','105M','161K'],['RX-7','193.2M','252K'],['EVO','340M','363K'],['G-Class','570M','494K'],['Van','887.5M','695K'],['Tree','5.349B','956K'],['Container','8.175B','1.427M'],['Sailboat','13.4B','1.918M'],['Bus','19.67B','2.609M'],['Truck','29B','3.41M'],['Windmill','212.5B','4.65M'],['Jet','310B','6.23M'],['Tank','442.5B','7.94M'],['Transport Helicopter','600B','10M'],['Battleship','5.39T','13.1M'],['Spaceship','8.24T','17M'],['Speaker','12.19T','22.1M'],['Anchor','17.9T','28.8M'],['Old House','25.8T','37.4M'],['Building','222T','48.6M'],['Toxic Tank','315T','63.2M'],['Rocket','444T','82.2M'],['Castle','621T','107M'],['Torpedo','925T','139M'],['Signal Tower','8.55Qa','180M'],['Stone Altar','12.3Qa','234M'],['UFO','17.6Qa','300M'],['Ancient Place','24.9Qa','400M'],['Pyramid','38.29Qa','515M'],['Canyon Mt.','471Qa','660M'],['Mountain','680Qa','880M'],['Volcano','1Qi','1.1B'],['Mt. Fuji','1.379Qi','1.5B'],['Meteorite','2.06Qi','1.909B'],['Moon','36.9Qi','2.5B'],['Mercury','55.5Qi','3.23B'],['Mars','84.4Qi','4.2B'],['Saturn','125Qi','5.5B'],['Jupiter','199Qi','7.18B'],['Super Saturn','3.7Sx','17.7B'],['Sedna Bar','10.19Sx','41.5B'],['Sun','26.8Sx','99.9B'],['Mini Galaxy','1.42Sp','239B'],['Earth Bar','3.71Sp','570B'],['Black Hole','9.55Sp','1.389T'],['Four Dimensions','626Sp','3.29T'],['Sun Bar','1.59Oc','7.9T'],['Holy Star','4.049Oc','18.9T'],['Meteoroids Ring','311Oc','45.5T'],['Meteor Bar','798.9Oc','110T'],['Water Sphere','2.02No','262T'],['Super Meteorite','179No','629T'],['Cross Stars','455No','1.5Qa'],['Fiery Star','1.05Dc','3.62Qa'],['Super Venus','115Dc','8.55Qa'],['Atomic Suns','278Dc','20.8Qa'],['Lightning Cube','705Dc','50Qa'],['Atmosphere','81.09Ud','120Qa'],['Five Dimensions','202Ud','288Qa'],['Space Stone','499.9Ud','699Qa'],['Universe','67.4Dd','1.659Qi'],['Mind Stone','171Dd','3.99Qi'],['Reality Stone','436Dd','9.55Qi'],['Soul Stone','57.79Td','22.9Qi'],['Time Stone','154Td','55Qi'],['Power Stone','407Td','132Qi'],['Cosmo Bar','82.2Qad','315Qi'],['Galaxy Bar','226Qad','755Qi'],['Universe Bar','1.079Qid','9.99Sx'],['Sharkupiter','481Qid','25.5Sx'],['Giftune','1.349Sxd','61.5Sx'],['Aurora Way','3.549Sxd','145Sx'],['Eternity','452Sxd','355Sx'],['Cashensione','1.19Spd','795Sx'],['Past','2.86Spd','1.99Sp'],['Future','383.9Spd','4.55Sp'],['Infection','933.9Spd','11.1Sp'],['Mutation','2.409Ocd','29.9Sp'],['Godly 1st Class','342Ocd','66.6Sp'],['Godly 2nd Class','803Ocd','155Sp'],['Godly 3rd Class','1.96Nod','369Sp'],['Godly 4th Class','279Nod','899Sp'],['Godly 5th Class','711Nod','2.32Oc'],['Godly 6th Class','1.909Vg','5.15Oc'],['Godly 7th Class','221.9Vg','12.49Oc'],['Godly 8th Class','599Vg','29.9Oc'],['Godly 9th Class','1.55Uvg','99.9Oc'],['1ST SUPER CLASS','3.349Dvg','555Oc'],['2ND SUPER CLASS','21.2Dvg','3No'],['3RD SUPER CLASS','128.9Dvg','16.6No'],['4TH SUPER CLASS','799Dvg','91.5No'],['5TH SUPER CLASS','5.25Tvg','500No'],['6TH SUPER CLASS','33.5Tvg','2.77Dc'],['7TH SUPER CLASS','1.15Qivg','15.5Dc'],['8TH SUPER CLASS','7.2Qivg','83.3Dc'],['9TH SUPER CLASS','43Qivg','460Dc'],['10TH SUPER CLASS','265Qivg','2.55Ud'],['11TH SUPER CLASS','1.59Sxvg','13.9Ud'],['1ST ULTIMATE CLASS','9.33Sxvg','76.5Ud'],['2ND ULTIMATE CLASS','3.65Ocvg','420Ud'],['3RD ULTIMATE CLASS','21.6Ocvg','2.33Dd'],['4TH ULTIMATE CLASS','129Ocvg','12.5Dd'],['5TH ULTIMATE CLASS','733Ocvg','70Dd'],['6TH ULTIMATE CLASS','4.33Novg','385Dd'],['7TH ULTIMATE CLASS','25.5Novg','2.219Td'],['8TH ULTIMATE CLASS','76.59Utg','11.5Td'],['9TH ULTIMATE CLASS','424.9Utg','64.19Td'],['1ST SUPREME CLASS','2.549Dtg','355Td'],['2ND SUPREME CLASS','15Dtg','1.99Qad'],['3RD SUPREME CLASS','89.5Dtg','11.1Qad'],['4TH SUPREME CLASS','525Dtg','58.79Qad'],['5TH SUPREME CLASS','16.9Qitg','322Qad'],['6TH SUPREME CLASS','100Qitg','1.77Qid'],['7TH SUPREME CLASS','595Qitg','9.75Qid'],['8TH SUPREME CLASS','3.75Sxtg','53.5Qid'],['9TH SUPREME CLASS','23Sxtg','295Qid'],['ULTIMATE SUPREME CLASS','155Sxtg','1.99Sxd']];
 const RAW_STAGES_UI=[['Stage 0','0','1','16'],['Stage 1','2M','2','30'],['Stage 2','150M','5','50'],['Stage 3','5B','19','75'],['Stage 4','125B','99','100'],['Stage 5','4.3T','499','150'],['Stage 6','160T','3K','200'],['Stage 7','5.4Qa','19K','250'],['Stage 8','630Qa','159K','300'],['Stage 9','25Qi','1.99M','350'],['Stage 10','370Qi','29.9M','400'],['Stage 11','90Sx','599M','450'],['Stage 12','28.8Sp','14.9B','500'],['Stage 13','12.49Oc','449B','550'],['Stage 14','6.09No','15.9T','600'],['Stage 15','3.44Dc','629T','650'],['Stage 16','2.77Ud','28.9Qa','700'],['Stage 17','2.44Dd','1.49Qi','800'],['Stage 18','2.549Td','77.9Qi','900'],['Stage 19','2.99Qad','5.55Sx','1K'],['Stage 20','16.9Qid','279Sx','1.05K'],['Stage 21','13.3Sxd','13.9Sp','1.1K'],['Stage 22','9.99Spd','699Sp','1.2K'],['Stage 23','8.99Ocd','34.9Oc','1.3K'],['Stage 24','5.99Nod','1.99No','1.4K'],['Stage 25','5.55Vg','99.9No','1.5K'],['Stage 26','12.2Uvg','55.5Dc','2K'],['Stage 27','345Tvg','299Ud','2.5K'],['Stage 28','75.5Sxvg','19.9Td','3K'],['Stage 29','199Novg','9.99Qid','4K'],['Stage 30','5.55Ttg','55.5Spd','5K'],['Reborn','1Sxtg','999Sxtg','999Sxtg']];
 
@@ -209,7 +112,6 @@ function initDropdowns() {
     const sW = document.getElementById('startWeight');
     const tW = document.getElementById('targetWeight');
     RAW_WEIGHTS_UI.forEach((w,i)=>{const o=new Option(w[0],i);sW.add(o.cloneNode(true));tW.add(o);});
-    
     const sS = document.getElementById('startStage');
     const tS = document.getElementById('targetStage');
     RAW_STAGES_UI.forEach((s,i)=>{
@@ -220,55 +122,37 @@ function initDropdowns() {
     });
 }
 initDropdowns();
-
 updateSlider(document.getElementById('sampleRate').value);
 updateUIState();
 
-function updateSlider(v) {
-    document.getElementById('sampleVal').innerText = v + "x";
-}
+function updateSlider(v) { document.getElementById('sampleVal').innerText = v + "x"; }
+function toggleTheme(){document.body.classList.toggle('light');}
 
 function updateUIState() {
     const maxWChecked = document.getElementById('maxWeightUnlocked').checked;
-    const maxWInput = document.getElementById('maxWeightReborn');
-    maxWInput.disabled = !maxWChecked;
-
+    document.getElementById('maxWeightReborn').disabled = !maxWChecked;
     const autoMode = document.getElementById('autoMode').checked;
     const approxCheckbox = document.getElementById('approxMode');
     const approxLabelRow = document.getElementById('approxLabelRow');
     const sliderGroup = document.getElementById('sliderGroup');
-    
     if (autoMode) {
         approxCheckbox.disabled = true;
         approxLabelRow.classList.add('disabled-text');
         sliderGroup.classList.add('hidden');
-        
         const sR = parseInt(document.getElementById('startReborn').value) || 0;
         const tR = parseInt(document.getElementById('targetReborn').value) || 0;
-        const delta = tR - sR;
-        approxCheckbox.checked = delta > 100;
+        approxCheckbox.checked = (tR - sR) > 100;
     } else {
         approxCheckbox.disabled = false;
         approxLabelRow.classList.remove('disabled-text');
-        
-        if (approxCheckbox.checked) {
-            sliderGroup.classList.remove('hidden');
-        } else {
-            sliderGroup.classList.add('hidden');
-        }
+        sliderGroup.classList.toggle('hidden', !approxCheckbox.checked);
     }
 }
 
-function toggleTheme(){document.body.classList.toggle('light');}
-
 function formatTime(s) {
     if (s === Infinity) return "Forever";
-    if (s > 3.1536e37) {
-        return (s / 31536000).toExponential(2) + " years";
-    }
-    let r = [];
-    let v = [['y',31536000],['d',86400],['h',3600],['m',60],['s',1]];
-    let workingS = Math.floor(s);
+    if (s > 3.1536e37) return (s / 31536000).toExponential(2) + " years";
+    let r = [], v = [['y',31536000],['d',86400],['h',3600],['m',60],['s',1]], workingS = Math.floor(s);
     for (let [n, d] of v) {
         let q = Math.floor(workingS / d);
         if (q > 0) { r.push(q + n); workingS %= d; }
@@ -280,7 +164,6 @@ function formatTime(s) {
 let worker;
 function startCalculation() {
     if (worker) worker.terminate();
-    
     const isAuto = document.getElementById('autoMode').checked;
     const isApprox = document.getElementById('approxMode').checked;
     const finalSampleRate = isAuto ? 1.05 : parseFloat(document.getElementById('sampleRate').value);
@@ -302,7 +185,7 @@ function startCalculation() {
         sOver: parseFloat(document.getElementById('stageOver').value) || 0,
         rOver: parseFloat(document.getElementById('rebornOver').value) || 0,
         maxWUnlocked: document.getElementById('maxWeightUnlocked').checked,
-        maxWReborn: parseInt(document.getElementById('maxWeightReborn').value) || 0
+        maxWReborn: document.getElementById('maxWeightReborn').value === '' ? -1 : parseInt(document.getElementById('maxWeightReborn').value)
     };
 
     const btn = document.getElementById('calcBtn');
@@ -326,15 +209,12 @@ function startCalculation() {
             if (e.data.detail) statusDetail.innerText = e.data.detail;
         } else if (e.data.type === 'done') {
             const seconds = e.data.value;
-            const formatted = formatTime(seconds);
             const hours = (seconds / 3600);
-            const hoursFormatted = (hours > 1000000000000000000000000000000) ? hours.toExponential(2) : hours.toFixed(2);
-            
             resultDiv.innerHTML = `
                 <span class="label">Time Required</span>
-                <span class="val main">${formatted}</span>
+                <span class="val main">${formatTime(seconds)}</span>
                 <span class="label">Total Hours</span>
-                <span class="val">${hoursFormatted} hours</span>
+                <span class="val">${(hours > 1e30) ? hours.toExponential(2) : hours.toFixed(2)} hours</span>
                 <span class="label">Total Seconds</span>
                 <span class="val">${Math.floor(seconds).toLocaleString()}</span>
             `;
@@ -345,447 +225,339 @@ function startCalculation() {
         } else if (e.data.type === 'error') {
             statusDetail.innerText = "Error: " + e.data.message;
             statusDiv.querySelector('progress').style.backgroundColor = "var(--error)";
-            btn.disabled = false;
-            btn.innerText = "Calculate Time";
+            btn.disabled = false; btn.innerText = "Calculate Time";
         }
     };
     worker.postMessage(params);
 }
 </script>
-
 <script id="worker-code" type="javascript/worker">
-try {
-    const PREFIXES = ['K','M','B','T','Qa','Qi','Sx','Sp','Oc','No','Dc','Ud','Dd','Td','Qad','Qid','Sxd','Spd','Ocd','Nod','Vg','Uvg','Dvg','Tvg','Qavg','Qivg','Sxvg','Spvg','Ocvg','Novg','Tg','Utg','Dtg','Ttg','Qatg','Qitg','Sxtg','Sptg','Octg','Notg'];
-    const RAW_WEIGHTS = [['Pencil','0','10'],['Stick','15','20'],['Mouse','45','30'],['Water','90','50'],['Soccer Ball','187.5','70'],['Bottle','315','100'],['Textbook','600','160'],['Bucket','1.2K','240'],['Wood','2.15K','330'],['Guitar','3.475K','440'],['Chair','5.275K','620'],['Cart','8.375K','850'],['TV','12.75K','1.1K'],['Bicyle','19.8K','1.399K'],['Desk','29.25K','1.85K'],['Bed','44.25K','2.799K'],['Log','75.5K','3.7K'],['Canoe','111K','5.55K'],['Tyre','208K','7.9K'],['Refrigeretor','355K','10.1K'],['Drum','1.212M','15.5K'],['Hydrant','2.325M','22.39K'],['Piano','4.025M','40.9K'],['Motorcycle','9.8M','63K'],['Safe','18.9M','84.5K'],['Flag','30.25M','100K'],['ATM','105M','161K'],['RX-7','193.2M','252K'],['EVO','340M','363K'],['G-Class','570M','494K'],['Van','887.5M','695K'],['Tree','5.349B','956K'],['Container','8.175B','1.427M'],['Sailboat','13.4B','1.918M'],['Bus','19.67B','2.609M'],['Truck','29B','3.41M'],['Windmill','212.5B','4.65M'],['Jet','310B','6.23M'],['Tank','442.5B','7.94M'],['Transport Helicopter','600B','10M'],['Battleship','5.39T','13.1M'],['Spaceship','8.24T','17M'],['Speaker','12.19T','22.1M'],['Anchor','17.9T','28.8M'],['Old House','25.8T','37.4M'],['Building','222T','48.6M'],['Toxic Tank','315T','63.2M'],['Rocket','444T','82.2M'],['Castle','621T','107M'],['Torpedo','925T','139M'],['Signal Tower','8.55Qa','180M'],['Stone Altar','12.3Qa','234M'],['UFO','17.6Qa','300M'],['Ancient Place','24.9Qa','400M'],['Pyramid','38.29Qa','515M'],['Canyon Mt.','471Qa','660M'],['Mountain','680Qa','880M'],['Volcano','1Qi','1.1B'],['Mt. Fuji','1.379Qi','1.5B'],['Meteorite','2.06Qi','1.909B'],['Moon','36.9Qi','2.5B'],['Mercury','55.5Qi','3.23B'],['Mars','84.4Qi','4.2B'],['Saturn','125Qi','5.5B'],['Jupiter','199Qi','7.18B'],['Super Saturn','3.7Sx','17.7B'],['Sedna Bar','10.19Sx','41.5B'],['Sun','26.8Sx','99.9B'],['Mini Galaxy','1.42Sp','239B'],['Earth Bar','3.71Sp','570B'],['Black Hole','9.55Sp','1.389T'],['Four Dimensions','626Sp','3.29T'],['Sun Bar','1.59Oc','7.9T'],['Holy Star','4.049Oc','18.9T'],['Meteoroids Ring','311Oc','45.5T'],['Meteor Bar','798.9Oc','110T'],['Water Sphere','2.02No','262T'],['Super Meteorite','179No','629T'],['Cross Stars','455No','1.5Qa'],['Fiery Star','1.05Dc','3.62Qa'],['Super Venus','115Dc','8.55Qa'],['Atomic Suns','278Dc','20.8Qa'],['Lightning Cube','705Dc','50Qa'],['Atmosphere','81.09Ud','120Qa'],['Five Dimensions','202Ud','288Qa'],['Space Stone','499.9Ud','699Qa'],['Universe','67.4Dd','1.659Qi'],['Mind Stone','171Dd','3.99Qi'],['Reality Stone','436Dd','9.55Qi'],['Soul Stone','57.79Td','22.9Qi'],['Time Stone','154Td','55Qi'],['Power Stone','407Td','132Qi'],['Cosmo Bar','82.2Qad','315Qi'],['Galaxy Bar','226Qad','755Qi'],['Universe Bar','1.079Qid','9.99Sx'],['Sharkupiter','481Qid','25.5Sx'],['Giftune','1.349Sxd','61.5Sx'],['Aurora Way','3.549Sxd','145Sx'],['Eternity','452Sxd','355Sx'],['Cashensione','1.19Spd','795Sx'],['Past','2.86Spd','1.99Sp'],['Future','383.9Spd','4.55Sp'],['Infection','933.9Spd','11.1Sp'],['Mutation','2.409Ocd','29.9Sp'],['Godly 1st Class','342Ocd','66.6Sp'],['Godly 2nd Class','803Ocd','155Sp'],['Godly 3rd Class','1.96Nod','369Sp'],['Godly 4th Class','279Nod','899Sp'],['Godly 5th Class','711Nod','2.32Oc'],['Godly 6th Class','1.909Vg','5.15Oc'],['Godly 7th Class','221.9Vg','12.49Oc'],['Godly 8th Class','599Vg','29.9Oc'],['Godly 9th Class','1.55Uvg','99.9Oc'],['1ST SUPER CLASS','3.349Dvg','555Oc'],['2ND SUPER CLASS','21.2Dvg','3No'],['3RD SUPER CLASS','128.9Dvg','16.6No'],['4TH SUPER CLASS','799Dvg','91.5No'],['5TH SUPER CLASS','5.25Tvg','500No'],['6TH SUPER CLASS','33.5Tvg','2.77Dc'],['7TH SUPER CLASS','1.15Qivg','15.5Dc'],['8TH SUPER CLASS','7.2Qivg','83.3Dc'],['9TH SUPER CLASS','43Qivg','460Dc'],['10TH SUPER CLASS','265Qivg','2.55Ud'],['11TH SUPER CLASS','1.59Sxvg','13.9Ud'],['1ST ULTIMATE CLASS','9.33Sxvg','76.5Ud'],['2ND ULTIMATE CLASS','3.65Ocvg','420Ud'],['3RD ULTIMATE CLASS','21.6Ocvg','2.33Dd'],['4TH ULTIMATE CLASS','129Ocvg','12.5Dd'],['5TH ULTIMATE CLASS','733Ocvg','70Dd'],['6TH ULTIMATE CLASS','4.33Novg','385Dd'],['7TH ULTIMATE CLASS','25.5Novg','2.219Td'],['8TH ULTIMATE CLASS','76.59Utg','11.5Td'],['9TH ULTIMATE CLASS','424.9Utg','64.19Td'],['1ST SUPREME CLASS','2.549Dtg','355Td'],['2ND SUPREME CLASS','15Dtg','1.99Qad'],['3RD SUPREME CLASS','89.5Dtg','11.1Qad'],['4TH SUPREME CLASS','525Dtg','58.79Qad'],['5TH SUPREME CLASS','16.9Qitg','322Qad'],['6TH SUPREME CLASS','100Qitg','1.77Qid'],['7TH SUPREME CLASS','595Qitg','9.75Qid'],['8TH SUPREME CLASS','3.75Sxtg','53.5Qid'],['9TH SUPREME CLASS','23Sxtg','295Qid'],['ULTIMATE SUPREME CLASS','155Sxtg','1.99Sxd']];
-    const RAW_STAGES = [['Stage 0','0','1','16'],['Stage 1','2M','2','30'],['Stage 2','150M','5','50'],['Stage 3','5B','19','75'],['Stage 4','125B','99','100'],['Stage 5','4.3T','499','150'],['Stage 6','160T','3K','200'],['Stage 7','5.4Qa','19K','250'],['Stage 8','630Qa','159K','300'],['Stage 9','25Qi','1.99M','350'],['Stage 10','370Qi','29.9M','400'],['Stage 11','90Sx','599M','450'],['Stage 12','28.8Sp','14.9B','500'],['Stage 13','12.49Oc','449B','550'],['Stage 14','6.09No','15.9T','600'],['Stage 15','3.44Dc','629T','650'],['Stage 16','2.77Ud','28.9Qa','700'],['Stage 17','2.44Dd','1.49Qi','800'],['Stage 18','2.549Td','77.9Qi','900'],['Stage 19','2.99Qad','5.55Sx','1K'],['Stage 20','16.9Qid','279Sx','1.05K'],['Stage 21','13.3Sxd','13.9Sp','1.1K'],['Stage 22','9.99Spd','699Sp','1.2K'],['Stage 23','8.99Ocd','34.9Oc','1.3K'],['Stage 24','5.99Nod','1.99No','1.4K'],['Stage 25','5.55Vg','99.9No','1.5K'],['Stage 26','12.2Uvg','55.5Dc','2K'],['Stage 27','345Tvg','299Ud','2.5K'],['Stage 28','75.5Sxvg','19.9Td','3K'],['Stage 29','199Novg','9.99Qid','4K'],['Stage 30','5.55Ttg','55.5Spd','5K'],['Reborn','1Sxtg','999Sxtg','999Sxtg']];
+const PREFIXES = ['K','M','B','T','Qa','Qi','Sx','Sp','Oc','No','Dc','Ud','Dd','Td','Qad','Qid','Sxd','Spd','Ocd','Nod','Vg','Uvg','Dvg','Tvg','Qavg','Qivg','Sxvg','Spvg','Ocvg','Novg','Tg','Utg','Dtg','Ttg','Qatg','Qitg','Sxtg','Sptg','Octg','Notg'];
+const RAW_WEIGHTS = [['Pencil','0','10'],['Stick','15','20'],['Mouse','45','30'],['Water','90','50'],['Soccer Ball','187.5','70'],['Bottle','315','100'],['Textbook','600','160'],['Bucket','1.2K','240'],['Wood','2.15K','330'],['Guitar','3.475K','440'],['Chair','5.275K','620'],['Cart','8.375K','850'],['TV','12.75K','1.1K'],['Bicyle','19.8K','1.399K'],['Desk','29.25K','1.85K'],['Bed','44.25K','2.799K'],['Log','75.5K','3.7K'],['Canoe','111K','5.55K'],['Tyre','208K','7.9K'],['Refrigeretor','355K','10.1K'],['Drum','1.212M','15.5K'],['Hydrant','2.325M','22.39K'],['Piano','4.025M','40.9K'],['Motorcycle','9.8M','63K'],['Safe','18.9M','84.5K'],['Flag','30.25M','100K'],['ATM','105M','161K'],['RX-7','193.2M','252K'],['EVO','340M','363K'],['G-Class','570M','494K'],['Van','887.5M','695K'],['Tree','5.349B','956K'],['Container','8.175B','1.427M'],['Sailboat','13.4B','1.918M'],['Bus','19.67B','2.609M'],['Truck','29B','3.41M'],['Windmill','212.5B','4.65M'],['Jet','310B','6.23M'],['Tank','442.5B','7.94M'],['Transport Helicopter','600B','10M'],['Battleship','5.39T','13.1M'],['Spaceship','8.24T','17M'],['Speaker','12.19T','22.1M'],['Anchor','17.9T','28.8M'],['Old House','25.8T','37.4M'],['Building','222T','48.6M'],['Toxic Tank','315T','63.2M'],['Rocket','444T','82.2M'],['Castle','621T','107M'],['Torpedo','925T','139M'],['Signal Tower','8.55Qa','180M'],['Stone Altar','12.3Qa','234M'],['UFO','17.6Qa','300M'],['Ancient Place','24.9Qa','400M'],['Pyramid','38.29Qa','515M'],['Canyon Mt.','471Qa','660M'],['Mountain','680Qa','880M'],['Volcano','1Qi','1.1B'],['Mt. Fuji','1.379Qi','1.5B'],['Meteorite','2.06Qi','1.909B'],['Moon','36.9Qi','2.5B'],['Mercury','55.5Qi','3.23B'],['Mars','84.4Qi','4.2B'],['Saturn','125Qi','5.5B'],['Jupiter','199Qi','7.18B'],['Super Saturn','3.7Sx','17.7B'],['Sedna Bar','10.19Sx','41.5B'],['Sun','26.8Sx','99.9B'],['Mini Galaxy','1.42Sp','239B'],['Earth Bar','3.71Sp','570B'],['Black Hole','9.55Sp','1.389T'],['Four Dimensions','626Sp','3.29T'],['Sun Bar','1.59Oc','7.9T'],['Holy Star','4.049Oc','18.9T'],['Meteoroids Ring','311Oc','45.5T'],['Meteor Bar','798.9Oc','110T'],['Water Sphere','2.02No','262T'],['Super Meteorite','179No','629T'],['Cross Stars','455No','1.5Qa'],['Fiery Star','1.05Dc','3.62Qa'],['Super Venus','115Dc','8.55Qa'],['Atomic Suns','278Dc','20.8Qa'],['Lightning Cube','705Dc','50Qa'],['Atmosphere','81.09Ud','120Qa'],['Five Dimensions','202Ud','288Qa'],['Space Stone','499.9Ud','699Qa'],['Universe','67.4Dd','1.659Qi'],['Mind Stone','171Dd','3.99Qi'],['Reality Stone','436Dd','9.55Qi'],['Soul Stone','57.79Td','22.9Qi'],['Time Stone','154Td','55Qi'],['Power Stone','407Td','132Qi'],['Cosmo Bar','82.2Qad','315Qi'],['Galaxy Bar','226Qad','755Qi'],['Universe Bar','1.079Qid','9.99Sx'],['Sharkupiter','481Qid','25.5Sx'],['Giftune','1.349Sxd','61.5Sx'],['Aurora Way','3.549Sxd','145Sx'],['Eternity','452Sxd','355Sx'],['Cashensione','1.19Spd','795Sx'],['Past','2.86Spd','1.99Sp'],['Future','383.9Spd','4.55Sp'],['Infection','933.9Spd','11.1Sp'],['Mutation','2.409Ocd','29.9Sp'],['Godly 1st Class','342Ocd','66.6Sp'],['Godly 2nd Class','803Ocd','155Sp'],['Godly 3rd Class','1.96Nod','369Sp'],['Godly 4th Class','279Nod','899Sp'],['Godly 5th Class','711Nod','2.32Oc'],['Godly 6th Class','1.909Vg','5.15Oc'],['Godly 7th Class','221.9Vg','12.49Oc'],['Godly 8th Class','599Vg','29.9Oc'],['Godly 9th Class','1.55Uvg','99.9Oc'],['1ST SUPER CLASS','3.349Dvg','555Oc'],['2ND SUPER CLASS','21.2Dvg','3No'],['3RD SUPER CLASS','128.9Dvg','16.6No'],['4TH SUPER CLASS','799Dvg','91.5No'],['5TH SUPER CLASS','5.25Tvg','500No'],['6TH SUPER CLASS','33.5Tvg','2.77Dc'],['7TH SUPER CLASS','1.15Qivg','15.5Dc'],['8TH SUPER CLASS','7.2Qivg','83.3Dc'],['9TH SUPER CLASS','43Qivg','460Dc'],['10TH SUPER CLASS','265Qivg','2.55Ud'],['11TH SUPER CLASS','1.59Sxvg','13.9Ud'],['1ST ULTIMATE CLASS','9.33Sxvg','76.5Ud'],['2ND ULTIMATE CLASS','3.65Ocvg','420Ud'],['3RD ULTIMATE CLASS','21.6Ocvg','2.33Dd'],['4TH ULTIMATE CLASS','129Ocvg','12.5Dd'],['5TH ULTIMATE CLASS','733Ocvg','70Dd'],['6TH ULTIMATE CLASS','4.33Novg','385Dd'],['7TH ULTIMATE CLASS','25.5Novg','2.219Td'],['8TH ULTIMATE CLASS','76.59Utg','11.5Td'],['9TH ULTIMATE CLASS','424.9Utg','64.19Td'],['1ST SUPREME CLASS','2.549Dtg','355Td'],['2ND SUPREME CLASS','15Dtg','1.99Qad'],['3RD SUPREME CLASS','89.5Dtg','11.1Qad'],['4TH SUPREME CLASS','525Dtg','58.79Qad'],['5TH SUPREME CLASS','16.9Qitg','322Qad'],['6TH SUPREME CLASS','100Qitg','1.77Qid'],['7TH SUPREME CLASS','595Qitg','9.75Qid'],['8TH SUPREME CLASS','3.75Sxtg','53.5Qid'],['9TH SUPREME CLASS','23Sxtg','295Qid'],['ULTIMATE SUPREME CLASS','155Sxtg','1.99Sxd']];
+const RAW_STAGES = [['Stage 0','0','1','16'],['Stage 1','2M','2','30'],['Stage 2','150M','5','50'],['Stage 3','5B','19','75'],['Stage 4','125B','99','100'],['Stage 5','4.3T','499','150'],['Stage 6','160T','3K','200'],['Stage 7','5.4Qa','19K','250'],['Stage 8','630Qa','159K','300'],['Stage 9','25Qi','1.99M','350'],['Stage 10','370Qi','29.9M','400'],['Stage 11','90Sx','599M','450'],['Stage 12','28.8Sp','14.9B','500'],['Stage 13','12.49Oc','449B','550'],['Stage 14','6.09No','15.9T','600'],['Stage 15','3.44Dc','629T','650'],['Stage 16','2.77Ud','28.9Qa','700'],['Stage 17','2.44Dd','1.49Qi','800'],['Stage 18','2.549Td','77.9Qi','900'],['Stage 19','2.99Qad','5.55Sx','1K'],['Stage 20','16.9Qid','279Sx','1.05K'],['Stage 21','13.3Sxd','13.9Sp','1.1K'],['Stage 22','9.99Spd','699Sp','1.2K'],['Stage 23','8.99Ocd','34.9Oc','1.3K'],['Stage 24','5.99Nod','1.99No','1.4K'],['Stage 25','5.55Vg','99.9No','1.5K'],['Stage 26','12.2Uvg','55.5Dc','2K'],['Stage 27','345Tvg','299Ud','2.5K'],['Stage 28','75.5Sxvg','19.9Td','3K'],['Stage 29','199Novg','9.99Qid','4K'],['Stage 30','5.55Ttg','55.5Spd','5K'],['Reborn','1Sxtg','999Sxtg','999Sxtg']];
 
-    const PREFIX_MAP={}; PREFIXES.forEach((p,i)=>PREFIX_MAP[p.toLowerCase()]=10n**(3n*BigInt(i+1)));
+const PREFIX_MAP={}; PREFIXES.forEach((p,i)=>PREFIX_MAP[p.toLowerCase()]=10n**(3n*BigInt(i+1)));
 
-    function parseVal(v) {
-        if (typeof v==='number') return BigInt(v);
-        const m = v.trim().match(/^(\d+(?:\.\d+)?)([A-Za-z]*)$/);
-        if (!m) return 0n;
-        const [_,n,p]=m; const mult=PREFIX_MAP[p.toLowerCase()]||1n;
-        if (n.includes('.')) {
-            const [i,f]=n.split('.');
-            return (BigInt(i+f)*mult)/(10n**BigInt(f.length));
-        }
-        return BigInt(n)*mult;
+function parseVal(v) {
+    if (typeof v==='number') return BigInt(v);
+    const m = v.trim().match(/^(\d+(?:\.\d+)?)([A-Za-z]*)$/);
+    if (!m) return 0n;
+    const [_,n,p]=m; const mult=PREFIX_MAP[p.toLowerCase()]||1n;
+    if (n.includes('.')) {
+        const [i,f]=n.split('.');
+        return (BigInt(i+f)*mult)/(10n**BigInt(f.length));
     }
+    return BigInt(n)*mult;
+}
 
-    const WEIGHTS_DATA = RAW_WEIGHTS.map(w=>[parseVal(w[1]),parseVal(w[2])]);
-    const STAGES_DATA = RAW_STAGES.map(s=>[parseVal(s[1]),parseVal(s[2])]);
-    const LIFT_SPEED_MULT=1.95; const BUY_TICKS=BigInt(Math.round(LIFT_SPEED_MULT));
-    const MUSCLE_MULT=2n; const COIN_MULT=2n;
+const WEIGHTS_DATA = RAW_WEIGHTS.map(w=>[parseVal(w[1]),parseVal(w[2])]);
+const STAGES_DATA = RAW_STAGES.map(s=>[parseVal(s[1]),parseVal(s[2])]);
+const LIFT_SPEED_MULT=1.95; const BUY_TICKS=BigInt(Math.round(LIFT_SPEED_MULT));
+const MUSCLE_MULT=2n; const COIN_MULT=2n;
 
-    function simulateReborn(startS, startW, rebornIdx, startM, startC, targetS, targetW, targetR, reportProgress, maxWUnlocked, maxWReborn) {
-        let cW=startW, cS=startS;
-        let coins=startC, muscle=startM;
-        let maxW=startW+1, totalLifts=0n;
-        let wBought=0n, sBought=0n;
-        const totW=WEIGHTS_DATA.length;
-        let hitTarget=false;
-        let loopCount = 0;
+function simulateReborn(startS, startW, rebornIdx, startM, startC, targetS, targetW, targetR, reportProgress, maxWUnlocked, maxWReborn) {
+    let cW=startW, cS=startS;
+    let coins=startC, muscle=startM;
+    let maxW=startW+1, totalLifts=0n;
+    let wBought=0n, sBought=0n;
+    const totW=WEIGHTS_DATA.length;
+    let hitTarget=false;
+    let loopCount = 0;
+    const MAX_LOOPS = 2000000; 
+
+    while(true) {
+        loopCount++;
+        if (loopCount > MAX_LOOPS) break;
+
+        if (rebornIdx === targetR) {
+            if (cS > targetS || (cS === targetS && cW >= targetW)) {
+                hitTarget = true;
+                break;
+            }
+        }
         
-        const MAX_LOOPS = 2000000; 
-
-        if (reportProgress) {
-            console.log(`[Sim Start] Reborn: ${rebornIdx}, S: ${startS}, W: ${startW}, Target: ${targetR} S:${targetS} W:${targetW}`);
+        if (maxWUnlocked && rebornIdx > maxWReborn && cS === 30) {
+            totalLifts += 1n;
+            if (rebornIdx === targetR && targetS === 30) {
+                hitTarget = true;
+                cW = targetW; 
+                break;
+            }
+            cS++; 
+            break;
         }
 
-        while(true) {
-            loopCount++;
-            
-            if (loopCount > MAX_LOOPS) {
-                console.error("Infinite loop detected");
-                break;
-            }
+        const isExactGrindReborn = maxWUnlocked && rebornIdx === maxWReborn;
+        const limit = Math.min(totW, maxW+1);
 
-            if (rebornIdx === targetR) {
-                if (cS > targetS || (cS === targetS && cW >= targetW)) {
-                    hitTarget = true;
-                    break;
-                }
-            }
-            
-            if (maxWUnlocked && rebornIdx > maxWReborn && cS === 30) {
-                totalLifts += 1n;
-                if (rebornIdx === targetR && targetS === 30) {
-                    hitTarget = true;
-                    cW = targetW; 
-                    break;
-                }
-                cS++; 
-                break;
-            }
+        if (cS > 30) {
+            const hasMaxWeight = cW >= (totW - 1);
+            if (isExactGrindReborn && !hasMaxWeight) cS = 30; 
+            else break; 
+        }
 
-            const isExactGrindReborn = maxWUnlocked && rebornIdx === maxWReborn;
-            const limit = Math.min(totW, maxW+1);
+        const sCost=STAGES_DATA[cS+1][0];
+        const sPow=STAGES_DATA[cS][1];
+        const rMult=1n+10n*BigInt(rebornIdx);
+        const bPow=sPow*rMult*MUSCLE_MULT;
+        const curMult=WEIGHTS_DATA[cW][1];
+        const cRate=bPow*curMult*COIN_MULT;
+        const effBuyingPower = coins + (muscle * COIN_MULT);
 
-            if (cS > 30) {
-                const hasMaxWeight = cW >= (totW - 1);
-                if (isExactGrindReborn && !hasMaxWeight) {
-                    cS = 30; 
-                } else {
-                    break; 
-                }
-            }
-
-            const sCost=STAGES_DATA[cS+1][0];
-            const sPow=STAGES_DATA[cS][1];
-            const rMult=1n+10n*BigInt(rebornIdx);
-            const bPow=sPow*rMult*MUSCLE_MULT;
-            const curMult=WEIGHTS_DATA[cW][1];
-            const cRate=bPow*curMult*COIN_MULT;
-            const effBuyingPower = coins + (muscle * COIN_MULT);
-
-            // ** DYNAMIC OPTIMIZER GOAL **
-            let goalCost = sCost;
-            let isTargetGoal = false;
-            
-            if (rebornIdx === targetR && cS === targetS) {
-                if (cW < targetW) {
-                    // Set goal to the cost of the TARGET WEIGHT
-                    goalCost = WEIGHTS_DATA[targetW][0];
-                    isTargetGoal = true;
-                } else {
-                    hitTarget = true;
-                    break;
-                }
-            }
-
-            const cands=[]; const candI=[]; let lastM=curMult;
-            
-            // Limit candidates scan range
-            const scanLimit = isTargetGoal ? targetW : limit;
-
-            for(let i=cW+1; i<scanLimit; i++){
-                const [cost,mult]=WEIGHTS_DATA[i];
-                const lhs=(mult-lastM)*goalCost; 
-                const rhs=cost*lastM;
-                
-                if(lhs>rhs || isTargetGoal) { cands.push([cost,mult]); candI.push(i); lastM=mult; }
-                else break;
-            }
-
-            let bestIdx=-1;
-            if (cands.length>0) {
-                const nC=cands.length; const tFin=new Array(nC).fill(0n);
-                const bCRate=bPow*COIN_MULT;
-                for(let i=nC-1; i>=0; i--){
-                    const cR_cand=cands[i][1]*bCRate;
-                    let bT=(goalCost+cR_cand-1n)/cR_cand; 
-                    for(let j=i+1; j<nC; j++){
-                        const cNext=cands[j][0];
-                        const wT=(cNext+cR_cand-1n)/cR_cand;
-                        const tot=BUY_TICKS+wT+tFin[j];
-                        if(tot<bT) bT=tot;
-                    }
-                    tFin[i]=bT;
-                }
-                
-                let bTotT=(goalCost-effBuyingPower+cRate-1n)/cRate;
-                if(goalCost<=effBuyingPower) bTotT=0n;
-                
-                for(let i=0; i<nC; i++){
-                    const cCand=cands[i][0];
-                    let wT=0n;
-                    if(cCand>effBuyingPower) wT=(cCand-effBuyingPower+cRate-1n)/cRate;
-                    const tot=BUY_TICKS+wT+tFin[i];
-                    if(tot<bTotT) { bTotT=tot; bestIdx=i; }
-                }
-            }
-
-            if (bestIdx!==-1) {
-                const nWI=candI[bestIdx];
-                const wCost=WEIGHTS_DATA[nWI][0];
-                let lNeed=0n;
-                if(wCost>effBuyingPower) lNeed=(wCost-effBuyingPower+cRate-1n)/cRate;
-                totalLifts+=lNeed;
-                coins+=(lNeed*cRate)-wCost;
-                muscle=0n; cW=nWI;
-                wBought++;
-                if(cW+1>maxW) maxW=cW+1;
+        let goalCost = sCost;
+        let isTargetGoal = false;
+        
+        if (rebornIdx === targetR && cS === targetS) {
+            if (cW < targetW) {
+                goalCost = WEIGHTS_DATA[targetW][0];
+                isTargetGoal = true;
             } else {
-                if (isTargetGoal) {
-                    // Logic to buy TARGET WEIGHT directly (skip intermediate candidates)
-                     if (cW < targetW) {
-                         const wCost = WEIGHTS_DATA[targetW][0];
-                         let lNeed = 0n;
-                         if(wCost > effBuyingPower) lNeed = (wCost - effBuyingPower + cRate - 1n) / cRate;
-                         
-                         totalLifts+=lNeed;
-                         coins+=(lNeed*cRate)-wCost;
-                         muscle=0n; 
-                         cW=targetW; // Jump directly to target
-                         wBought++;
-                         hitTarget = true;
-                         break; // We are done
-                    }
-                    break; 
-                }
-                
-                const hasMaxWeight = cW >= (totW - 1);
-                
-                if (isExactGrindReborn && cS === 30) {
-                     if (!hasMaxWeight) {
-                        const nextWI = cW + 1;
-                        const wCost = WEIGHTS_DATA[nextWI][0];
-                        const wName = RAW_WEIGHTS[nextWI][0];
-                        
-                        let lNeed = 0n;
-                        if (wCost > effBuyingPower) lNeed = (wCost - effBuyingPower + cRate - 1n) / cRate;
-                        
-                        totalLifts += lNeed;
-                        coins += (lNeed * cRate) - wCost;
-                        muscle = 0n; cW = nextWI;
-                        wBought++;
-                        if (cW + 1 > maxW) maxW = cW + 1;
-                     } else {
-                        break; 
-                     }
-                } else {
-                    let lNeed=0n;
-                    if(sCost>effBuyingPower) lNeed=(sCost-effBuyingPower+cRate-1n)/cRate;
-                    totalLifts+=lNeed;
-                    cW=0; coins=0n; muscle=0n; cS++;
-                    sBought++;
-                }
+                hitTarget = true;
+                break;
             }
         }
-        return { timeTaken: totalLifts, finalM: muscle, finalC: coins, hitTarget: hitTarget, endStage: cS, endWeight: cW, wBought: wBought, sBought: sBought };
+
+        const cands=[]; const candI=[]; let lastM=curMult;
+        const scanLimit = isTargetGoal ? targetW : limit;
+
+        for(let i=cW+1; i<scanLimit; i++){
+            const [cost,mult]=WEIGHTS_DATA[i];
+            const lhs=(mult-lastM)*goalCost; 
+            const rhs=cost*lastM;
+            if(lhs>rhs || isTargetGoal) { cands.push([cost,mult]); candI.push(i); lastM=mult; }
+            else break;
+        }
+
+        let bestIdx=-1;
+        if (cands.length>0) {
+            const nC=cands.length; const tFin=new Array(nC).fill(0n);
+            const bCRate=bPow*COIN_MULT;
+            for(let i=nC-1; i>=0; i--){
+                const cR_cand=cands[i][1]*bCRate;
+                let bT=(goalCost+cR_cand-1n)/cR_cand; 
+                for(let j=i+1; j<nC; j++){
+                    const cNext=cands[j][0];
+                    const wT=(cNext+cR_cand-1n)/cR_cand;
+                    const tot=BUY_TICKS+wT+tFin[j];
+                    if(tot<bT) bT=tot;
+                }
+                tFin[i]=bT;
+            }
+            let bTotT=(goalCost-effBuyingPower+cRate-1n)/cRate;
+            if(goalCost<=effBuyingPower) bTotT=0n;
+            for(let i=0; i<nC; i++){
+                const cCand=cands[i][0];
+                let wT=0n;
+                if(cCand>effBuyingPower) wT=(cCand-effBuyingPower+cRate-1n)/cRate;
+                const tot=BUY_TICKS+wT+tFin[i];
+                if(tot<bTotT) { bTotT=tot; bestIdx=i; }
+            }
+        }
+
+        if (bestIdx!==-1) {
+            const nWI=candI[bestIdx];
+            const wCost=WEIGHTS_DATA[nWI][0];
+            let lNeed=0n;
+            if(wCost>effBuyingPower) lNeed=(wCost-effBuyingPower+cRate-1n)/cRate;
+            totalLifts+=lNeed;
+            coins+=(lNeed*cRate)-wCost;
+            muscle=0n; cW=nWI;
+            wBought++;
+            if(cW+1>maxW) maxW=cW+1;
+        } else {
+            if (isTargetGoal) {
+                 if (cW < targetW) {
+                     const wCost = WEIGHTS_DATA[targetW][0];
+                     let lNeed = 0n;
+                     if(wCost > effBuyingPower) lNeed = (wCost - effBuyingPower + cRate - 1n) / cRate;
+                     totalLifts+=lNeed;
+                     coins+=(lNeed*cRate)-wCost;
+                     muscle=0n; 
+                     cW=targetW; 
+                     wBought++;
+                     hitTarget = true;
+                     break; 
+                }
+                break; 
+            }
+            
+            const hasMaxWeight = cW >= (totW - 1);
+            if (isExactGrindReborn && cS === 30) {
+                 if (!hasMaxWeight) {
+                    const nextWI = cW + 1;
+                    const wCost = WEIGHTS_DATA[nextWI][0];
+                    let lNeed = 0n;
+                    if (wCost > effBuyingPower) lNeed = (wCost - effBuyingPower + cRate - 1n) / cRate;
+                    totalLifts += lNeed;
+                    coins += (lNeed * cRate) - wCost;
+                    muscle = 0n; cW = nextWI;
+                    wBought++;
+                    if (cW + 1 > maxW) maxW = cW + 1;
+                 } else break; 
+            } else {
+                let lNeed=0n;
+                if(sCost>effBuyingPower) lNeed=(sCost-effBuyingPower+cRate-1n)/cRate;
+                totalLifts+=lNeed;
+                cW=0; coins=0n; muscle=0n; cS++;
+                sBought++;
+            }
+        }
+    }
+    return { timeTaken: totalLifts, finalM: muscle, finalC: coins, hitTarget: hitTarget, endStage: cS, endWeight: cW, wBought: wBought, sBought: sBought };
+}
+
+self.onmessage = function(e) {
+    const {useApprox, sRate, sW, sS, sR, sM, sC, tW, tS, tR, tM, tC, wOver, sOver, rOver, maxWUnlocked, maxWReborn}=e.data;
+    let totalLifts = 0n, totalWeights = 0n, totalStages = 0n, totalReborns = 0n, limitExact = 0;
+    
+    if (useApprox && maxWUnlocked && maxWReborn >= sR && (maxWReborn - sR) <= 100) {
+        limitExact = maxWReborn;
+        if (limitExact >= tR) limitExact = tR - 1; 
+    } else {
+        limitExact = sR; 
     }
 
-    self.onmessage = function(e) {
-        const {useApprox, sRate, sW, sS, sR, sM, sC, tW, tS, tR, tM, tC, wOver, sOver, rOver, maxWUnlocked, maxWReborn}=e.data;
-        
-        let totalLifts = 0n;
-        let totalWeights = 0n;
-        let totalStages = 0n;
-        let totalReborns = 0n;
-        let limitExact = 0;
-        
-        console.log("Starting Calculation...");
-
-        if (useApprox && maxWUnlocked && maxWReborn >= sR && (maxWReborn - sR) <= 100) {
-            limitExact = maxWReborn;
-            if (limitExact >= tR) limitExact = tR - 1; 
-        } else {
-            limitExact = sR; 
+    let totalSteps = 0;
+    if (useApprox && sR !== tR) {
+        totalSteps += (limitExact - sR) + 1;
+        let simR = limitExact + 1;
+        while(simR < tR) {
+            totalSteps++;
+            let nextR = Math.ceil(simR * sRate);
+            if (nextR <= simR) nextR = simR + 1;
+            simR = nextR;
         }
-
-        let totalSteps = 0;
-        if (useApprox && sR !== tR) {
-            totalSteps += (limitExact - sR) + 1;
-            let simR = limitExact + 1;
-            while(simR < tR) {
-                totalSteps++;
-                let nextR = Math.ceil(simR * sRate);
-                if (nextR <= simR) nextR = simR + 1;
-                simR = nextR;
-            }
-            totalSteps++; 
-        } else {
-            totalSteps = (tR - sR) + 1;
-        }
-        
-        let currentStep = 0;
-        const updateProgress = (msg) => {
-            currentStep++;
-            const pct = Math.min(99, Math.max(0, (currentStep / totalSteps) * 100));
-            self.postMessage({type:'progress', value: pct, detail: msg});
-        };
-
-        if (!useApprox) {
-            const firstRun = simulateReborn(sS, sW, sR, parseVal(sM), parseVal(sC), (sR === tR ? tS : 999), (sR === tR ? tW : 999), (sR === tR ? tR : -1), false, maxWUnlocked, maxWReborn); 
-            totalLifts += firstRun.timeTaken;
-            totalWeights += firstRun.wBought;
-            totalStages += firstRun.sBought;
-            
-            if (sR !== tR) totalReborns++;
-
-            updateProgress(`Reborn ${sR} done`);
-            
-            if (sR === tR) {
-                finishUp(firstRun.endStage, firstRun.endWeight, sR, firstRun.finalM, firstRun.finalC, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver);
-                return;
-            }
-
-            for (let r = sR + 1; r < tR; r++) {
-                const res = simulateReborn(0, 0, r, 0n, 0n, 999, 999, -1, false, maxWUnlocked, maxWReborn); 
-                totalLifts += res.timeTaken;
-                totalWeights += res.wBought;
-                totalStages += res.sBought;
-                totalReborns++;
-                updateProgress(`Simulating Reborn ${r}`); 
-            }
-
-            const finalRun = simulateReborn(0, 0, tR, 0n, 0n, tS, tW, tR, false, maxWUnlocked, maxWReborn); 
-            totalLifts += finalRun.timeTaken;
-            totalWeights += finalRun.wBought;
-            totalStages += finalRun.sBought;
-            
-            updateProgress("Finishing...");
-            
-            finishUp(finalRun.endStage, finalRun.endWeight, tR, finalRun.finalM, finalRun.finalC, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver);
-            return;
-        }
-
-        if (sR === tR) {
-            const res = simulateReborn(sS, sW, sR, parseVal(sM), parseVal(sC), tS, tW, tR, true, maxWUnlocked, maxWReborn);
-            totalLifts += res.timeTaken;
-            totalWeights += res.wBought;
-            totalStages += res.sBought;
-            updateProgress("Single Reborn Done");
-            finishUp(res.endStage, res.endWeight, sR, res.finalM, res.finalC, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver);
-            return;
-        }
-
-        let currentR = sR;
-        
-        const firstRun = simulateReborn(sS, sW, sR, parseVal(sM), parseVal(sC), 999, 999, -1, false, maxWUnlocked, maxWReborn);
-        totalLifts += firstRun.timeTaken;
-        totalWeights += firstRun.wBought;
-        totalStages += firstRun.sBought;
-        totalReborns++;
-        updateProgress(`Reborn ${sR} done`);
-        currentR++;
-
-        while (currentR <= limitExact) {
-            const res = simulateReborn(0, 0, currentR, 0n, 0n, 999, 999, -1, false, maxWUnlocked, maxWReborn);
-            totalLifts += res.timeTaken;
-            totalWeights += res.wBought;
-            totalStages += res.sBought;
-            totalReborns++;
-            updateProgress(`Reborn ${currentR} done (Exact)`);
-            currentR++;
-        }
-
-        let samples = [];
-        
-        while(currentR < tR) {
-            const res = simulateReborn(0, 0, currentR, 0n, 0n, 999, 999, -1, false, maxWUnlocked, maxWReborn);
-            samples.push({ r: currentR, t: res.timeTaken, w: res.wBought, s: res.sBought });
-            updateProgress(`Sample ${currentR} done`);
-
-            let nextR = Math.ceil(currentR * sRate);
-            if (nextR <= currentR) nextR = currentR + 1;
-            if (nextR >= tR) break; 
-            currentR = nextR;
-        }
-        
-        if (samples.length > 0) {
-            for (let i = 0; i < samples.length - 1; i++) {
-                const p1 = samples[i];
-                const p2 = samples[i+1];
-                
-                const r1 = Number(p1.r);
-                const r2 = Number(p2.r);
-                const deltaR = r2 - r1;
-                const ratio = r1 / r2;
-
-                const t1 = Number(p1.t);
-                const t2 = Number(p2.t);
-                const avgRate = t1 * ratio + t2 * (1.0 - ratio);
-                totalLifts += BigInt(Math.round(avgRate * deltaR));
-
-                const w1 = Number(p1.w);
-                const w2 = Number(p2.w);
-                const avgW = w1 * ratio + w2 * (1.0 - ratio);
-                totalWeights += BigInt(Math.round(avgW * deltaR));
-
-                const s1 = Number(p1.s);
-                const s2 = Number(p2.s);
-                const avgS = s1 * ratio + s2 * (1.0 - ratio);
-                totalStages += BigInt(Math.round(avgS * deltaR));
-
-                totalReborns += BigInt(deltaR);
-            }
-            
-            const lastSample = samples[samples.length - 1];
-            const gapToTarget = BigInt(tR - lastSample.r);
-            
-            if (gapToTarget > 0n) {
-                const rateRun = simulateReborn(0, 0, tR, 0n, 0n, 999, 999, -1, false, maxWUnlocked, maxWReborn);
-                
-                const r1 = Number(lastSample.r);
-                const r2 = Number(tR);
-                const deltaR = Number(gapToTarget);
-                const ratio = r1 / r2;
-
-                const t1 = Number(lastSample.t);
-                const t2 = Number(rateRun.timeTaken);
-                const avgRate = t1 * ratio + t2 * (1.0 - ratio);
-                totalLifts += BigInt(Math.round(avgRate * deltaR));
-
-                const w1 = Number(lastSample.w);
-                const w2 = Number(rateRun.wBought);
-                const avgW = w1 * ratio + w2 * (1.0 - ratio);
-                totalWeights += BigInt(Math.round(avgW * deltaR));
-
-                const s1 = Number(lastSample.s);
-                const s2 = Number(rateRun.sBought);
-                const avgS = s1 * ratio + s2 * (1.0 - ratio);
-                totalStages += BigInt(Math.round(avgS * deltaR));
-
-                totalReborns += gapToTarget;
-            }
-        }
-
-        const finalRun = simulateReborn(0, 0, tR, 0n, 0n, tS, tW, tR, false, maxWUnlocked, maxWReborn);
-        totalLifts += finalRun.timeTaken;
-        totalWeights += finalRun.wBought;
-        totalStages += finalRun.sBought;
-        
-        updateProgress("Final step done");
-
-        finishUp(finalRun.endStage, finalRun.endWeight, tR, finalRun.finalM, finalRun.finalC, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver);
+        totalSteps++; 
+    } else {
+        totalSteps = (tR - sR) + 1;
+    }
+    
+    let currentStep = 0;
+    const updateProgress = (msg) => {
+        currentStep++;
+        const pct = Math.min(99, Math.max(0, (currentStep / totalSteps) * 100));
+        self.postMessage({type:'progress', value: pct, detail: msg});
     };
 
-    function finishUp(cS, cW, cR, muscle, coins, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver) {
-        const tMV=parseVal(tM); const tCV=parseVal(tC);
+    if (!useApprox) {
+        const firstRun = simulateReborn(sS, sW, sR, parseVal(sM), parseVal(sC), (sR === tR ? tS : 999), (sR === tR ? tW : 999), (sR === tR ? tR : -1), false, maxWUnlocked, maxWReborn); 
+        totalLifts += firstRun.timeTaken; totalWeights += firstRun.wBought; totalStages += firstRun.sBought;
+        if (sR !== tR) totalReborns++;
+        updateProgress(`Reborn ${sR} done`);
         
-        const sPow=STAGES_DATA[cS][1];
-        const rMult=1n+10n*BigInt(cR);
-        const mRate = sPow * rMult * MUSCLE_MULT * WEIGHTS_DATA[cW][1]; 
-        const cRate = mRate * COIN_MULT; 
-
-        let neededCoins = tCV - coins;
-        let liftForCoins = 0n;
-
-        if (neededCoins > 0n) {
-            let valueInMuscle = muscle * COIN_MULT;
-            if (valueInMuscle >= neededCoins) {
-                coins += neededCoins; 
-                muscle = 0n; 
-            } else {
-                coins += valueInMuscle;
-                muscle = 0n;
-                neededCoins = tCV - coins;
-                liftForCoins = (neededCoins + cRate - 1n) / cRate;
-                coins += liftForCoins * cRate;
-            }
+        if (sR === tR) {
+            finishUp(firstRun.endStage, firstRun.endWeight, sR, firstRun.finalM, firstRun.finalC, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver);
+            return;
         }
-        
-        let neededMuscle = tMV - muscle;
-        let liftForMuscle = 0n;
-        
-        if (neededMuscle > 0n) {
-            liftForMuscle = (neededMuscle + mRate - 1n) / mRate;
+
+        for (let r = sR + 1; r < tR; r++) {
+            const res = simulateReborn(0, 0, r, 0n, 0n, 999, 999, -1, false, maxWUnlocked, maxWReborn); 
+            totalLifts += res.timeTaken; totalWeights += res.wBought; totalStages += res.sBought; totalReborns++;
+            updateProgress(`Simulating Reborn ${r}`); 
         }
-        
-        const extra = liftForCoins + liftForMuscle;
-        totalLifts += extra;
 
-        const baseSeconds = Number(totalLifts) / LIFT_SPEED_MULT;
-        const overgrindSeconds = (Number(totalWeights) * wOver) + (Number(totalStages) * sOver) + (Number(totalReborns) * rOver);
-        const finalTime = baseSeconds + overgrindSeconds;
-
-        console.log("Done. Final Seconds: " + finalTime);
-        self.postMessage({type:'done', value: finalTime});
+        const finalRun = simulateReborn(0, 0, tR, 0n, 0n, tS, tW, tR, false, maxWUnlocked, maxWReborn); 
+        totalLifts += finalRun.timeTaken; totalWeights += finalRun.wBought; totalStages += finalRun.sBought;
+        updateProgress("Finishing...");
+        finishUp(finalRun.endStage, finalRun.endWeight, tR, finalRun.finalM, finalRun.finalC, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver);
+        return;
     }
-} catch(err) {
-    self.postMessage({type:'error', message: err.message});
+
+    if (sR === tR) {
+        const res = simulateReborn(sS, sW, sR, parseVal(sM), parseVal(sC), tS, tW, tR, true, maxWUnlocked, maxWReborn);
+        totalLifts += res.timeTaken; totalWeights += res.wBought; totalStages += res.sBought;
+        updateProgress("Single Reborn Done");
+        finishUp(res.endStage, res.endWeight, sR, res.finalM, res.finalC, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver);
+        return;
+    }
+
+    let currentR = sR;
+    const firstRun = simulateReborn(sS, sW, sR, parseVal(sM), parseVal(sC), 999, 999, -1, false, maxWUnlocked, maxWReborn);
+    totalLifts += firstRun.timeTaken; totalWeights += firstRun.wBought; totalStages += firstRun.sBought; totalReborns++;
+    updateProgress(`Reborn ${sR} done`);
+    currentR++;
+
+    while (currentR <= limitExact) {
+        const res = simulateReborn(0, 0, currentR, 0n, 0n, 999, 999, -1, false, maxWUnlocked, maxWReborn);
+        totalLifts += res.timeTaken; totalWeights += res.wBought; totalStages += res.sBought; totalReborns++;
+        updateProgress(`Reborn ${currentR} done (Exact)`);
+        currentR++;
+    }
+
+    let samples = [];
+    while(currentR < tR) {
+        const res = simulateReborn(0, 0, currentR, 0n, 0n, 999, 999, -1, false, maxWUnlocked, maxWReborn);
+        samples.push({ r: currentR, t: res.timeTaken, w: res.wBought, s: res.sBought });
+        updateProgress(`Sample ${currentR} done`);
+        let nextR = Math.ceil(currentR * sRate);
+        if (nextR <= currentR) nextR = currentR + 1;
+        if (nextR >= tR) break; 
+        currentR = nextR;
+    }
+    
+    if (samples.length > 0) {
+        for (let i = 0; i < samples.length - 1; i++) {
+            const p1 = samples[i], p2 = samples[i+1];
+            const r1 = Number(p1.r), r2 = Number(p2.r), deltaR = r2 - r1, ratio = r1 / r2;
+            const t1 = Number(p1.t), t2 = Number(p2.t), avgRate = t1 * ratio + t2 * (1.0 - ratio);
+            totalLifts += BigInt(Math.round(avgRate * deltaR));
+            const w1 = Number(p1.w), w2 = Number(p2.w), avgW = w1 * ratio + w2 * (1.0 - ratio);
+            totalWeights += BigInt(Math.round(avgW * deltaR));
+            const s1 = Number(p1.s), s2 = Number(p2.s), avgS = s1 * ratio + s2 * (1.0 - ratio);
+            totalStages += BigInt(Math.round(avgS * deltaR));
+            totalReborns += BigInt(deltaR);
+        }
+        const lastSample = samples[samples.length - 1];
+        const gapToTarget = BigInt(tR - lastSample.r);
+        
+        if (gapToTarget > 0n) {
+            const rateRun = simulateReborn(0, 0, tR, 0n, 0n, 999, 999, -1, false, maxWUnlocked, maxWReborn);
+            const r1 = Number(lastSample.r), r2 = Number(tR), deltaR = Number(gapToTarget), ratio = r1 / r2;
+            const t1 = Number(lastSample.t), t2 = Number(rateRun.timeTaken), avgRate = t1 * ratio + t2 * (1.0 - ratio);
+            totalLifts += BigInt(Math.round(avgRate * deltaR));
+            const w1 = Number(lastSample.w), w2 = Number(rateRun.wBought), avgW = w1 * ratio + w2 * (1.0 - ratio);
+            totalWeights += BigInt(Math.round(avgW * deltaR));
+            const s1 = Number(lastSample.s), s2 = Number(rateRun.sBought), avgS = s1 * ratio + s2 * (1.0 - ratio);
+            totalStages += BigInt(Math.round(avgS * deltaR));
+            totalReborns += gapToTarget;
+        }
+    }
+
+    const finalRun = simulateReborn(0, 0, tR, 0n, 0n, tS, tW, tR, false, maxWUnlocked, maxWReborn);
+    totalLifts += finalRun.timeTaken; totalWeights += finalRun.wBought; totalStages += finalRun.sBought;
+    updateProgress("Final step done");
+    finishUp(finalRun.endStage, finalRun.endWeight, tR, finalRun.finalM, finalRun.finalC, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver);
+};
+
+function finishUp(cS, cW, cR, muscle, coins, tM, tC, totalLifts, totalWeights, totalStages, totalReborns, wOver, sOver, rOver) {
+    const tMV=parseVal(tM); const tCV=parseVal(tC);
+    const sPow=STAGES_DATA[cS][1];
+    const rMult=1n+10n*BigInt(cR);
+    const mRate = sPow * rMult * MUSCLE_MULT * WEIGHTS_DATA[cW][1]; 
+    const cRate = mRate * COIN_MULT; 
+
+    let neededCoins = tCV - coins;
+    let liftForCoins = 0n;
+
+    if (neededCoins > 0n) {
+        let valueInMuscle = muscle * COIN_MULT;
+        if (valueInMuscle >= neededCoins) {
+            coins += neededCoins; muscle = 0n; 
+        } else {
+            coins += valueInMuscle; muscle = 0n; neededCoins = tCV - coins;
+            liftForCoins = (neededCoins + cRate - 1n) / cRate;
+            coins += liftForCoins * cRate;
+        }
+    }
+    
+    let neededMuscle = tMV - muscle;
+    let liftForMuscle = 0n;
+    if (neededMuscle > 0n) liftForMuscle = (neededMuscle + mRate - 1n) / mRate;
+    
+    totalLifts += liftForCoins + liftForMuscle;
+    const baseSeconds = Number(totalLifts) / LIFT_SPEED_MULT;
+    const overgrindSeconds = (Number(totalWeights) * wOver) + (Number(totalStages) * sOver) + (Number(totalReborns) * rOver);
+    self.postMessage({type:'done', value: baseSeconds + overgrindSeconds});
 }
 </script>
 </body>
