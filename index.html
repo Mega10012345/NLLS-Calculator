@@ -360,7 +360,7 @@ function simulateReborn(startS, startW, rebornIdx, startM, startC, targetS, targ
             let lNeed=0n;
             if(wCost>effBuyingPower) lNeed=(wCost-effBuyingPower+cRate-1n)/cRate;
             totalLifts+=lNeed;
-            coins+=(lNeed*cRate)-wCost;
+            coins = effBuyingPower + (lNeed * cRate) - wCost;
             muscle=0n; cW=nWI;
             wBought++;
             if(cW+1>maxW) maxW=cW+1;
@@ -371,7 +371,7 @@ function simulateReborn(startS, startW, rebornIdx, startM, startC, targetS, targ
                      let lNeed = 0n;
                      if(wCost > effBuyingPower) lNeed = (wCost - effBuyingPower + cRate - 1n) / cRate;
                      totalLifts+=lNeed;
-                     coins+=(lNeed*cRate)-wCost;
+                     coins = effBuyingPower + (lNeed * cRate) - wCost;
                      muscle=0n; 
                      cW=targetW; 
                      wBought++;
@@ -389,7 +389,7 @@ function simulateReborn(startS, startW, rebornIdx, startM, startC, targetS, targ
                     let lNeed = 0n;
                     if (wCost > effBuyingPower) lNeed = (wCost - effBuyingPower + cRate - 1n) / cRate;
                     totalLifts += lNeed;
-                    coins += (lNeed * cRate) - wCost;
+                    coins = effBuyingPower + (lNeed * cRate) - wCost;
                     muscle = 0n; cW = nextWI;
                     wBought++;
                     if (cW + 1 > maxW) maxW = cW + 1;
