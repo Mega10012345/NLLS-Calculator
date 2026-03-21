@@ -84,13 +84,13 @@
             <div>
                 <div class="group-header">Initial Status</div>
                 <div class="row"><div><input type="text" id="startMuscle" placeholder="Muscle"></div><div><input type="text" id="startCoins" placeholder="Coins"></div></div>
-                <input type="number" id="startReborn" placeholder="Reborn" value="0" min="0" oninput="updateUIState()">
+                <input type="number" id="startReborn" placeholder="Reborn" min="0" oninput="updateUIState()">
                 <div class="row"><div><select id="startStage"></select></div><div><select id="startWeight"></select></div></div>
             </div>
             <div>
                 <div class="group-header">Target Status</div>
                 <div class="row"><div><input type="text" id="targetMuscle" placeholder="Muscle"></div><div><input type="text" id="targetCoins" placeholder="Coins"></div></div>
-                <input type="number" id="targetReborn" placeholder="Reborn" value="0" min="0" oninput="updateUIState()">
+                <input type="number" id="targetReborn" placeholder="Reborn" min="0" oninput="updateUIState()">
                 <div class="row"><div><select id="targetStage"></select></div><div><select id="targetWeight"></select></div></div>
             </div>
             <button id="calcBtn" class="action-btn" onclick="startCalculation()">Calculate Time</button>
